@@ -19,21 +19,33 @@ import { useCart } from '../../hooks/cart';
 // Navegação no clique do TouchableHighlight
 
 const FloatingCart: React.FC = () => {
-  const { products } = useCart();
+  const { products /* getCartTotalQuantity, getCartTotalValue */ } = useCart();
 
   const navigation = useNavigation();
 
   const cartTotal = useMemo(() => {
-    // TODO RETURN THE SUM OF THE PRICE FROM ALL ITEMS IN THE CART
-
-    return formatValue(0);
-  }, [products]);
+    /* return formatValue(getCartTotalValue()); */
+    const total = products.reduce(
+      (acummulator, { quantity, price }) => acummulator + quantity * price,
+      0,
+    );
+    return formatValue(total);
+  }, [
+    products,
+    /* getCartTotalValue */
+  ]);
 
   const totalItensInCart = useMemo(() => {
-    // TODO RETURN THE SUM OF THE QUANTITY OF THE PRODUCTS IN THE CART
-
-    return 0;
-  }, [products]);
+    /* return getCartTotalQuantity(); */
+    const total = products.reduce(
+      (acummulator, { quantity }) => acummulator + quantity,
+      0,
+    );
+    return total;
+  }, [
+    products,
+    /* getCartTotalQuantity */
+  ]);
 
   return (
     <Container>

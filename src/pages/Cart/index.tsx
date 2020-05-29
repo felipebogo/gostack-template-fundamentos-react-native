@@ -36,27 +36,45 @@ interface Product {
 }
 
 const Cart: React.FC = () => {
-  const { increment, decrement, products } = useCart();
+  const {
+    increment,
+    decrement,
+    products,
+    /*  getCartTotalQuantity,
+    getCartTotalValue, */
+  } = useCart();
 
-  function handleIncrement(id: string): void {
-    // TODO
+  async function handleIncrement(id: string): Promise<void> {
+    increment(id);
   }
 
-  function handleDecrement(id: string): void {
-    // TODO
+  async function handleDecrement(id: string): Promise<void> {
+    decrement(id);
   }
 
   const cartTotal = useMemo(() => {
-    // TODO RETURN THE SUM OF THE QUANTITY OF THE PRODUCTS IN THE CART
-
-    return formatValue(0);
-  }, [products]);
+    /* return formatValue(getCartTotalValue()); */
+    const total = products.reduce(
+      (acummulator, { quantity, price }) => acummulator + quantity * price,
+      0,
+    );
+    return formatValue(total);
+  }, [
+    products,
+    /* getCartTotalValue */
+  ]);
 
   const totalItensInCart = useMemo(() => {
-    // TODO RETURN THE SUM OF THE QUANTITY OF THE PRODUCTS IN THE CART
-
-    return 0;
-  }, [products]);
+    /* return getCartTotalQuantity(); */
+    const total = products.reduce(
+      (acummulator, { quantity }) => acummulator + quantity,
+      0,
+    );
+    return total;
+  }, [
+    products,
+    /* getCartTotalQuantity */
+  ]);
 
   return (
     <Container>
