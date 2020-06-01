@@ -40,8 +40,8 @@ const Cart: React.FC = () => {
     increment,
     decrement,
     products,
-    /*  getCartTotalQuantity,
-    getCartTotalValue, */
+    getCartTotalQuantity,
+    getCartTotalValue,
   } = useCart();
 
   async function handleIncrement(id: string): Promise<void> {
@@ -53,27 +53,27 @@ const Cart: React.FC = () => {
   }
 
   const cartTotal = useMemo(() => {
-    /* return formatValue(getCartTotalValue()); */
-    const total = products.reduce(
+    return formatValue(getCartTotalValue());
+    /* const total = products.reduce(
       (acummulator, { quantity, price }) => acummulator + quantity * price,
       0,
     );
-    return formatValue(total);
+    return formatValue(total); */
   }, [
-    products,
-    /* getCartTotalValue */
+    /* products, */
+    getCartTotalValue,
   ]);
 
   const totalItensInCart = useMemo(() => {
-    /* return getCartTotalQuantity(); */
-    const total = products.reduce(
+    return getCartTotalQuantity();
+    /* const total = products.reduce(
       (acummulator, { quantity }) => acummulator + quantity,
       0,
     );
-    return total;
+    return total; */
   }, [
-    products,
-    /* getCartTotalQuantity */
+    /* products, */
+    getCartTotalQuantity,
   ]);
 
   return (
